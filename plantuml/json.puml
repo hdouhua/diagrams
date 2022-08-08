@@ -1,0 +1,9 @@
+@startjson json demo
+!theme hacker
+
+{
+   "fruit":"Apple",
+   "size":"Large",
+   "color": ["Red", "Green"]
+}
+@endjson

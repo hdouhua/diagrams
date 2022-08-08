@@ -1,0 +1,30 @@
+@startgantt gantt demo
+
+projectscale daily zoom 3
+Project starts the 1st of September of 2022
+sunday are closed
+
+-- Planning --
+[Setting up the Budget] lasts 1 day
+[Drawing Blueprints] lasts 4 days
+-- Demolition --
+[Demolishing Dinning room wall] lasts 1 day
+[Scrapping Title flooring] lasts 2 days
+-- Construction --
+[Setting the Support beam] lasts 2 days
+[Laying Down Wooden flooring] lasts 3 days
+[Installing Electrical Wiring] lasts 4 days
+-- Interior Decorating --
+[Shipping Dinning Table] lasts 2 weeks
+[Shipping Chairs] lasts 2 weeks
+[Installing Lighting] lasts 1 day
+
+[Drawing Blueprints] -> [Demolishing Dinning room wall]
+[Drawing Blueprints] -> [Scrapping Title flooring]
+[Demolishing Dinning room wall] -> [Setting the Support beam]
+[Scrapping Title flooring] -> [Laying Down Wooden flooring]
+[Demolishing Dinning room wall] -> [Laying Down Wooden flooring]
+[Demolishing Dinning room wall] -> [Installing Electrical Wiring] 
+[Installing Electrical Wiring] -> [Installing Lighting]
+
+@endgantt

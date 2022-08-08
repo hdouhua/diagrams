@@ -1,0 +1,24 @@
+@startyaml testing
+!theme crt-green
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mariadb-pod
+  labels:
+    app: wordpress
+    role: database
+
+spec:
+  containers:
+  - image: mariadb:10
+    name: maria
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 3306
+
+    envFrom:
+    - prefix: 'MARIADB_'
+      configMapRef:
+        name: mariadb-cm
+@endyaml
