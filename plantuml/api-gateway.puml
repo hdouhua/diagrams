@@ -1,0 +1,65 @@
+@startuml traffic-via-api-gateway
+title Traffic via API-Gateway
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+' !include FONTAWESOME/users.puml
+!include FONTAWESOME/mobile_alt.puml
+!include DEVICONS/react.puml
+!include DEVICONS/redis.puml
+!include DEVICONS/dotnet.puml
+
+
+top to bottom direction
+' left to right direction
+
+AddElementTag("ui", $shape=RoundedBoxShape(), $legendText="web")
+AddElementTag("micro", $shape=EightSidedShape(), $bgColor="CornflowerBlue",$legendText="micro service")
+AddRelTag("real-api", $textColor="orange", $lineColor="orange")
+AddRelTag("api", $lineStyle = DashedLine(), $legendText="internal call")
+
+
+' Person(user, "Client", "This may be end-user or mobile app")
+
+Container(app, "Mobile App", "Client", $sprite="mobile_alt")
+Container(spa, "Member Site", "Client", "Host in BFF", $sprite="react", $tags="ui")
+
+Boundary(vpc, "VPC"){
+
+    Boundary(c2, "BFF", "Backend") {
+        Container(api, "BFF   API", "BFF", $sprite="dotnet", $tags="micro")
+        ContainerDb(redis, "Cache", $sprite="redis")
+    }
+
+    Boundary(c3, "Core Service", "Backend") {
+        Container(real, "Real Service", "Service", $sprite="dotnet", $tags="micro")
+        Container(others, "Other Service", "Service", $sprite="dotnet", $tags="micro")
+    }
+
+    WithoutPropertyHeader()
+    AddProperty("-","authentication")
+    AddProperty("-","access control")
+    AddProperty("-","rate limiting")
+    AddProperty("-","throttling")
+    AddProperty("-","traffic logging...")
+    System(gateway, "API Gateway", "Manage all API's traffic, support features as below")
+}
+
+' Rel_U(user, app, "Use")
+' Rel_R(user, spa, "Access", "http/https")
+Rel(app, gateway, "Use", "http/https", $tags="real-api")
+Rel_R(spa, gateway, "Use", "http/https")
+Rel_R(gateway, api, "Forward", "http/grpc")
+Rel_R(gateway, real, "Forward", "http/grpc", $tags="real-api")
+' Rel_R(gateway, others, "Forward", "http", $tags="direct")
+Rel(api, real, "Internal Use via API-Gateway", "http/grpc", $tags="api")
+Rel_R(api, redis, "Read/Write")
+
+' LAYOUT_WITH_LEGEND()
+' SHOW_LEGEND()
+HIDE_STEREOTYPE()
+' LAYOUT_AS_SKETCH()
+right footer created by douhua %date("yyyy-MM-dd")
+@enduml

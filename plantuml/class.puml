@@ -1,0 +1,28 @@
+@startuml class-sample
+
+!include theme/core.puml
+GREY_ARROW
+
+abstract class BaseClass {
+    +  AbstractMethod() : void
+    #  VirtualMethod(s:string) : int
+}
+class SubClass {
+    + AbstractMethod() : void
+    # VirtualMethod(s:string) : int
+}
+
+interface IInterfaceA {
+}
+
+interface "IInterfaceA`1"<T> {
+    Value : T <<get>>
+}
+class ImplementClass {
+    + Value : int <<get>>
+}
+BaseClass <|-- SubClass
+IInterfaceA <|-- "IInterfaceA`1"
+"IInterfaceA`1" "<int>" <|-- ImplementClass
+
+@enduml

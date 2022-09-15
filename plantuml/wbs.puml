@@ -1,6 +1,8 @@
 @startwbs wbs demo
+
+' !include theme/core.puml
 !theme crt-green
-'heme superhero-outline
+' !theme superhero-outline
 
 * Business Process Modelling WBS
 

@@ -1,8 +1,7 @@
 @startyaml yaml demo
-
-!theme toy
-'!theme amiga from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
-'!theme materia-outline from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
+ 
+' !theme amiga from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
+' !theme materia-outline from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
 
 
 #highlight "french-hens"
@@ -26,4 +25,5 @@ xmas-fifth-day:
     count: 1
     location: "a pear tree"
   turtle-doves: two
+
 @endyaml

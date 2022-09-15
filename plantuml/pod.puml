@@ -1,4 +1,5 @@
-@startyaml testing
+@startyaml pod-yaml-sample
+
 !theme crt-green
 
 apiVersion: v1
@@ -21,4 +22,5 @@ spec:
     - prefix: 'MARIADB_'
       configMapRef:
         name: mariadb-cm
+
 @endyaml

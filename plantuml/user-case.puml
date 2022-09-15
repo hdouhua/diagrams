@@ -1,10 +1,11 @@
 @startuml restaurant
 
-'!theme cerulean
-'!theme bluegray
+' !theme cerulean
+' !theme bluegray
 ' or use remote url
-!include https://raw.githubusercontent.com/plantuml/plantuml/master/themes/puml-theme-cerulean-outline.puml
-'!theme amiga from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
+' !include https://raw.githubusercontent.com/plantuml/plantuml/master/themes/puml-theme-cerulean-outline.puml
+!theme amiga from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
+' !include theme/core.puml
 
 left to right direction
 

@@ -1,4 +1,4 @@
-@startuml c4-model demo
+@startuml c4-model-demo
 title Spring PetClinic - Deployment - Live
 
 left to right direction

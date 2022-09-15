@@ -1,5 +1,7 @@
 @startwbs wbs
 
+' !include theme/core.puml
+
 * Project
 ** Part One
 +++ Task 1.1
