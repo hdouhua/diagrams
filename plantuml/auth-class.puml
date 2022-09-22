@@ -1,0 +1,59 @@
+@startuml auth-module
+
+!include theme/core.puml
+GREY_ARROW
+
+class AuthMiddleware {
+    + InvokeAsync(HttpContext, AuthContext) : Task
+    {static} - IsListedUrl(string): bool 
+    {static} - GetValidTimeSpan(string): (int, int) 
+}
+
+class AuthContext {
+    + Auth: AuthResult
+}
+class AuthResult {
+    + IsValid: bool
+    + InvalidReason: string
+}
+class DecryptResult {
+    + AlgoType: byte
+    + Text: string
+    + BotFlag: byte
+    + Timestamp: long
+    + Decryptable: bool
+    + Error: string
+}
+enum InvalidParamReason {
+    + InvalidPlatform
+    + EmptyReferrer
+    + InvalidReferrer
+    + EmptyKey
+    + InvalidKey
+    + KeyExpired
+    + DecryptError
+}
+class AlgoProxy {
+    {static} + Decrypt(string): DecryptResult
+}
+interface IKeyAlgo {
+    + Decrypt(byte[]): DecryptResult
+}
+class SimpleAlgo {
+}
+class SimplePlusAlgo {
+}
+
+
+SimpleAlgo ..|> IKeyAlgo
+SimplePlusAlgo ..|> IKeyAlgo
+AuthMiddleware --> AuthContext
+AuthResult <-- AuthContext
+AuthResult ..> InvalidParamReason
+AuthMiddleware --> AlgoProxy
+AlgoProxy --> IKeyAlgo
+AlgoProxy ..> DecryptResult
+' IKeyAlgo ..> DecryptResult
+
+right footer created by douhua %date("yyyy-MM-dd")
+@enduml

@@ -1,0 +1,69 @@
+@startuml auth-activity
+title Simple Auth-Flow
+
+!include theme/core.puml
+GREEN_ARROW
+' !theme cerulean-outline
+
+start
+:request arriving in\n AuthMiddleware;
+
+if (URL in listed ?) then (yes)
+
+    partition "validate HTTP header" {
+        :get KEY in header;
+        if (KEY exists\nand not empty ?) then (yes)
+            :get paltform in header;
+            if (paltform exists \nand valid ?) then (yes)
+                :get Referer in header;
+                if (Referer exists \nand not empty ?) then (yes)
+                    if (Referer is valid ?) then (yes)
+                    else (no)
+                        #E0E0E0:set InvalidReferrer;
+                    endif
+                else (no)
+                    #E0E0E0:set EmptyReferrer;
+                endif
+            else (no)
+                #E0E0E0:set InvalidPlatform;
+            endif
+        else (no)
+            #E0E0E0:set EmptyKey;
+        endif
+    }
+
+    if (AuthContext is valid ?) then (yes)
+        partition "validate KEY" {
+            if (KEY is decryptable ?) then (yes)
+                if (KEY is expired ?) then (yes)
+                    #E0E0E0:set KeyExpired;
+                elseif (KEY is invalid ?) then (yes)
+                    #E0E0E0:set InvalidKey;
+                endif
+            else (no)
+                #E0E0E0:set DecryptError;
+            endif
+        }
+    endif
+
+endif
+
+' note right
+' default AuthContext
+' is (valid, "")
+' end note
+
+:set AuthContext;
+
+floating note left
+- store AuthContext to DI,
+  can be easily used in request lifecycle
+- can take action by AuthContext in future
+end note
+
+:goto next pipeline;
+
+stop
+
+right footer created by douhua %date("yyyy-MM-dd")
+@enduml

@@ -20,10 +20,12 @@ skinparam Default {
 
 skinparam Note {
     'FontStyle bold
-    BackgroundColor NOTE_BG_COLOR
-    BorderColor NOTE_BORDER_COLOR
+    ' BackgroundColor NOTE_BG_COLOR
+    ' BorderColor NOTE_BORDER_COLOR
+    BackgroundColor NOTE_Q_BG_COLOR
+    BorderColor MD_YELLOW_800
     BorderThickness 1
-    FontColor White
+    ' FontColor White
     Shadowing false
     TextAlignment left
 }
