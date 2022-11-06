@@ -6,7 +6,7 @@ GREY_ARROW
 hide footbox
 
 actor user
-participant "User Agent\nBrowser/App" as B
+participant "Agent\nBrowser/App" as B
 participant "UI Host\nWeb Server" as U
 participant "API Host\nWeb Server" as A
 participant "CDN\n" as C 
@@ -33,7 +33,7 @@ loop render page
     B -> B: render page
 end
 
-newpage title server-side rendering
+newpage server-side rendering
 autonumber stop
 
 user -> B: access SPA
@@ -56,5 +56,6 @@ loop render page
     B -> B: render page
 end
 
-right footer created by douhua %date("yyyy-MM-dd")
+right footer created by hdouhua 2022-09-23
+' %date("yyyy-MM-dd")
 @enduml
